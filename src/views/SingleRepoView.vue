@@ -128,6 +128,11 @@ button :hover{
     padding: 10px;
   }
 
+  .nav-link{
+    display: none;
+  }
+
+
   .nav {
     flex-direction: column;
     align-items: center;

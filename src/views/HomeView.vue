@@ -23,15 +23,17 @@
   <div class="footer"><footer> Umar Farouk &copy;2024</footer></div>
 </template>
 
-<script>
-export default {
+<script lang="ts">
+import { defineComponent } from 'vue';
+
+export default defineComponent ({
   name: 'HomeView',
   methods: {
     showAlert() {
       window.alert('Coming Soon');
-    }
+    },
   }
-};
+});
 </script>
 
 <style scoped>
@@ -82,7 +84,6 @@ button:hover{
  background-color: #87573f;
 }
 
-
 .bio {
   background-color: #D0B8AC;
 	border-radius: 5px;
@@ -130,6 +131,10 @@ img{
 
   .nav {
     flex-direction: column;
+  }
+
+  .nav-link{
+    display: none;
   }
 
   footer{

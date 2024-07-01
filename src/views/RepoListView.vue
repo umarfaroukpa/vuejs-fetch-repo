@@ -13,13 +13,15 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+
+import { defineComponent } from 'vue';
 import { fetchRepositories } from '@/services/github';
 import RepoList from '@/components/RepoList.vue';
 import Pagination from '@/components/Pagination.vue';
 import RepoFilter from '@/components/RepoFilter.vue';
 
-export default {
+export default defineComponent({
   components: {
     RepoList,
     Pagination,
@@ -63,6 +65,9 @@ export default {
     this.fetchRepos();
   },
   methods: {
+    showAlert() {
+      window.alert('Coming Soon');
+    },
     async fetchRepos() {
       try {
         const response = await fetchRepositories(this.username, this.currentPage, this.perPage);
@@ -74,7 +79,7 @@ export default {
         console.error(error);
       }
     },
-
+    
     prevPage() {
       if (this.currentPage > 1) {
         this.currentPage--;
@@ -99,7 +104,7 @@ export default {
     }
   }
   
-};
+});
 </script>
 
 <style scoped>
@@ -128,6 +133,11 @@ export default {
     flex-direction: column;
     align-items: center;
   }
+
+  .nav-link{
+    display: none;
+  }
+
 
   .repo-list {
     padding: 10px;

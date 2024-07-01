@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory, RouteLocationNormalized } from 'vue-router';
 import HomeView from '@/views/HomeView.vue';
 import SingleRepoView from '@/views/SingleRepoView.vue';
-import RepoListView from '@/views/RepoListView.vue';  
+import RepoListView from '@/views/RepoListView.vue';
 import NotFound from '@/views/NotFoundView.vue';
+import { store } from '../store';
 
 const routes = [
   {
@@ -19,7 +20,7 @@ const routes = [
     path: '/repo/:owner/:repo',
     name: 'SingleRepo',
     component: SingleRepoView,
-    props: route => ({ owner: route.params.owner, repo: route.params.repo })
+    props: (route: RouteLocationNormalized) => ({ owner: route.params.owner, repo: route.params.repo })
   },
   {
     path: '/:catchAll(.*)',
@@ -33,13 +34,14 @@ const router = createRouter({
   routes
 });
 
-// Redirect to not found route for unmatched routes
+
 router.beforeEach((to, from, next) => {
-  if (to.matched.length === 0) {
-    next({ name: 'NotFound' });
-  } else {
-    next();
-  }
+  store.loading = true;
+  next();
+});
+
+router.afterEach(() => {
+  store.loading = false;
 });
 
 export default router;
